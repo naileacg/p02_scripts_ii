@@ -45,3 +45,48 @@ El script creado fue MoveOnSpace que detecta la cuando pulsamos la barra espacia
 
 ![Space](img/space.gif)
 
+**6. Agrega un campo velocidad a un cubo y asígnale un valor que se pueda cambiar en el inspector de objetos. Muestra la consola el resultado de multiplicar la velocidad por el valor del eje vertical y por el valor del eje horizontal cada vez que se pulsan las teclas flecha arriba-abajo ó flecha izquierda-derecha. El mensaje debe comenzar por el nombre de la flecha pulsada.**
+
+Este Script es CubeSpeed, con una variable pública velocidad para poder modificarla desde el inspector. El script detecta las teclas de dirección mediante Input.GetAxis("Horizontal") y Input.GetAxis("Vertical"). Cuando se presionan estas flechas, se muestra en la consola un mensaje con el nombre de la flecha pulsada y el resultado de multiplicar su valor de eje (Horizontal o Vertical) por la velocidad.
+
+![CubeSpeed](img/cubespeed.png)
+![Arrows](img/arrows.gif)
+
+**7. Mapea la tecla H a la función disparo.**
+
+Para lograrlo, utilicé el Input Manager (`Edit->Project Settings->InputManager->Axes`), donde copie una de las acciones y simplemente le cambié el nombre y la tecla a la que debía reaccionar con Positive Button. 
+
+Luego añadí un Script muy simple llamado "Shooting" asociado al Cilindro para poder ponerlo en uso.
+
+![Shooting](img/shooting.png)
+
+**8. Crea un script asociado al cubo que en cada iteración traslade al cubo una cantidad proporcional un vector que indica la dirección del movimiento: moveDirection que debe poder modificarse en el inspector.  La velocidad a la que se produce el movimiento también se especifica en el inspector, con la propiedad speed. Inicialmente la velocidad debe ser mayor que 1 y el cubo estar en una posición y=0.**
+
+Para esto cree un cubo nuevo al que llamé *MovingCube* y el Script MoveCube. Incluye las tres variables públicas que se piden para poder modificar en el inspector, *move_direction*, *speed* y *use_local_space*. Con esta información el cubo se mueve gracias a utilizar `Translate(x, y, z)`, inicialmente con una velocidad de 2 y manteniendo la dirección del movimiento y=0.
+
+![Normal](img/normal.gif)
+
+Se analizaron varias situaciones:
+
+  1. Duplicar las coordenadas de la dirección del movimiento. Avanza el doble de rápido en la misma dirección.
+
+![DoubleSpeed](img/doubledirection.png)
+![a](img/a.gif)
+
+  2. Duplicar la velocidad manteniendo la dirección del movimiento. El movimiento se volvió más rápido (speed=4).
+
+![DoubleSpeed](img/doublespeed.png)
+![b](img/b.gif)
+
+  3. La velocidad es menor que 1. El cubo va mucho más lento.
+
+![c](img/c.gif)
+
+  4. La posición del cubo tiene y>0. El cubo ahora se desplaza hacia arriba (y=2).
+
+![ynotzero](img/ynotzero.png)
+![d](img/d.gif)
+
+  5. Intercambiar movimiento relativo al sistema de referencia local y el mundial. Cuando usamos el sistema de referencia local, el cubo se mueve según su propia orientación. Si usamos el del mundo, utiliza los ejes globales, independientemente de su rotación.
+
+![e](img/e.gif)
