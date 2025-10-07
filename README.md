@@ -90,3 +90,33 @@ Se analizaron varias situaciones:
   5. Intercambiar movimiento relativo al sistema de referencia local y el mundial. Cuando usamos el sistema de referencia local, el cubo se mueve según su propia orientación. Si usamos el del mundo, utiliza los ejes globales, independientemente de su rotación.
 
 ![e](img/e.gif)
+
+**9. Mueve el cubo con las teclas de flecha arriba-abajo, izquierda-derecha a la velocidad speed. Cada uno de estos ejes implican desplazamientos en el eje vertical y horizontal respectivamente. Mueve la esfera con las teclas w-s (movimiento vertical) a-d (movimiento horizontal).**
+
+En este caso cree dos Scripts diferentes, MoveWithArrows y MoveWithWASD. Para poder especificar las teclas tuve que utilizar KeyCode.tecla, en lugar de Input.GetAxis, ya que este último responde tanto a WASD como a las flechas. Los script se parecen muhco a los anteriores apartados, se mueven gracias a una velocidad (ajustable) y al método `transform.Translate`.
+
+![MoveWithKeys](img/movewithkeys.gif)
+
+**10. Adapta el movimiento en el ejercicio 9 para que sea proporcional al tiempo transcurrido durante la generación del frame.**
+
+A partir del ejercicio anterior, modificamos los Script para que su desplazamiento sea independiente de los FPS. Esto se hace simplemente añadiendo `Time.deltaTime` en el cálculo del movimiento. De esta forma, el movimiento se vuelve proporcional al tiempo real transcurrido entre frames, en lugar de depender del número de actualizaciones por segundo. Gracias a esto, el movimiento es mucho más natural y menos rápido.
+
+![MoveWithDelta](img/movewithdelta.gif)
+
+**11. Adapta el movimiento en el ejercicio 10 para que el cubo se mueva hacia la posición de la esfera. Debes considerar que el avance no debe estar influenciado por cuánto de lejos o cerca estén los dos objetos.**
+
+En este caso cree un nuevo Script FollowSphere al que debemos asociarle una esfera. Para lograrlo, se calculó el vector dirección que une al cubo con la esfera y normalizamos el vector para que la magnitud del desplazamiento dependa solo de la velocidad y no de la distancia.
+
+![FollowCube](img/follow.gif)
+
+**12. Adapta el movimiento en el ejercicio 11 de forma que el cubo avance mirando siempre hacia la esfera, independientemente de la orientación de su sistema de referencia. Para ello, el cubo debe girar de forma que el eje Z positivo apunte hacia la esfera . Realiza pruebas cambiando la posición de la esfera mediante las teclas awsd**
+
+Ahora creamos el script AdvanceWithSphere y la dierencia es que utilizamos `LookAt()`, con lo que el cubo siempre esta mirando a la esfera y el movimiento es más natural.
+
+![LookAt](img/lookat.gif)
+
+**13. Utilizar el eje “Horizontal” para girar el objetivo y que avance siempre en la dirección hacia adelante.**
+
+Por último, creamos el Script RotateHorizontal, en el que el cubo siempre estará avanzando y con las flechas vamos a modificar su rotación para que se mueva. Gracias a `transform.forward`, el cubo se mueve por su cuenta hacia delante.
+
+![Rotate](img/rotate.gif)
